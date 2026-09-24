@@ -1,0 +1,8 @@
+#executables and object files
+*.exe
+*.o
+*.win
+*.layout
+
+#Temporary build folder
+.objs/
