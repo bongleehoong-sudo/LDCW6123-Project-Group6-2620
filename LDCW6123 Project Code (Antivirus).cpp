@@ -64,7 +64,7 @@ void Quarantine();
 void integrityCheck();
 void history();
 
-int main(){
+int main() {
 	int choice = 0;
 	
 	while (choice != 8) {
@@ -80,11 +80,11 @@ int main(){
 		}
 		
 		switch (choice){
-			case 1: 
+			case 1:
 				quickScan();
 				break;
 				
-			case 2: 
+			case 2:
 				fullScan();
 				break;
 				
@@ -96,7 +96,7 @@ int main(){
 				virusDatabase();
 				break;
 				
-			case 5: 
+			case 5:
 				Quarantine();
 				break;
 				
@@ -108,7 +108,7 @@ int main(){
 				history();
 				break;
 				
-			case 8: 
+			case 8:
 				cout << "Program Terminated\n";
 				break;
 		}
@@ -189,6 +189,16 @@ void quickScan() {
 	scanOneProgram(3, "Quick");
 	scanOneProgram(8, "Quick");
 	cout << "\nQuick scan complete. \n";
+	system("pause");
+}
+
+void fullScan(){
+	cout << "--- FULL SCAN ---\n";
+	for(int i = 0; i < PROGRAM_COUNT; i++){
+		scanOneProgram(i, "Full");
+	}
+	cout << "\nFull scan completed.\n";
+	system("pause");
 }
 
 void customThreatAnalysis() {
@@ -213,7 +223,7 @@ void customThreatAnalysis() {
 	cout << "Choice: ";
 	cin >> choice;
 	if (choice == 2) score += 15;
-	else if (choice == 3) score += 20;
+	else if (choice == 3) score += 25;
 	
 	cout << "\nObserved behaviour:\n";
 	cout << "1. Normal behaviour (+0)\n";
@@ -243,10 +253,11 @@ void customThreatAnalysis() {
 	cout << "Risk Level : " << getRiskLevel(score) << "\n";
 	if(score <= 24) cout << "Recommended Action: Allow and monitor\n";
 	else if (score <=49) cout << "Recommended Action: Check the source \n";
-	else if (score <- 74) cout << "Recommended Action: Investigate carefully\n";
+	else if (score <= 74) cout << "Recommended Action: Investigate carefully\n";
 	else cout << "Recommended Action: Quarantine for investigation\n";
 	
 	addHistory("Custom", "User answer", getRiskLevel(score));
+	system("pause");
 }
 
 void virusDatabase() {
@@ -257,6 +268,7 @@ void virusDatabase() {
 	for (int i = 0; i < SIGNATURE_COUNT; i++) {
 		cout << virusNames[i] << "\t\t" << virusSignatures[i] << "\n";
 	}
+	system("pause");
 }
 
 void Quarantine() {
@@ -332,4 +344,5 @@ void history() {
 			 <<historyList[i].programName << " -> "
 			 <<historyList[i].result << "\n";
 	}
+	system("pause");
 }
