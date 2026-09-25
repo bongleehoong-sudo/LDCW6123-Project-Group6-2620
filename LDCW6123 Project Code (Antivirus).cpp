@@ -1,8 +1,36 @@
-#include<iostream>
-#include<string>
-#include<cstlib>
+#include <iostream>
+#include <string>
+#include <cstlib>
+
+using namespace std;
+
+const int PROGRAM_COUNT = 12;
+const int SIGNATURE_COUNT = 6;
+const int HISTORY_SIZE = 60;
+
+struct Programs{
+	string name;
+	string data;
+	int originalChecksum;
+	int currentChecksum;
+	int heuristicScore;
+	string Status;
+};
+
+struct HistoryRecord{
+	string scanType;
+	string ProgramName;
+	string result;
+};
 
 void mainMenu();
+void quickScan();
+void fullScan();
+void customThreatAnalysis();
+void virusDatabase();
+void Quarantine();
+void integrityCheck();
+void history();
 
 int main(){
 	int choice = 0;
