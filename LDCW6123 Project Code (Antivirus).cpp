@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cstlib>
+#include <cstdlib>
 
 using namespace std;
 
@@ -19,7 +19,7 @@ struct Programs{
 
 struct HistoryRecord{
 	string scanType;
-	string ProgramName;
+	string programName;
 	string result;
 };
 
@@ -40,13 +40,13 @@ Programs SimulatedPrograms[PROGRAM_COUNT] = {
 	{"UPDATED Tool", "SYSTEM TOOL NEW VERSION", 1200, 1450, 55, "ACTIVE"},
 	{"USB Boot Tool", "BOOT STONED SECTOR", 1650, 1650, 75, "ACTIVE"},
 	{"OFFICE Document", "REPORT MELISSA MACRO", 1340, 1340, 65, "ACTIVE"},
-	{"LOVE Letter", "LOVE-LETTER EMAIL SCRIPT". 1490, 1490, 90, "ACTIVE"},
+	{"LOVE Letter", "LOVE-LETTER EMAIL SCRIPT", 1490, 1490, 90, "ACTIVE"},
 	{"ART Program", "DRAW PAINT CANVAS", 1380, 1380, 5, "ACTIVE"},
 	{"BACKUP Utility", "COPY ARCHIVE STORAGE", 1550, 1550, 30, "ACTIVE"},
 	{"OLD Boot Disk", "MICHEL BOOT SAMPLE", 1600, 1600, 85, "ACTIVE"}
 };
 
-HistoryRecord list[HISTORY_SIZE];
+HistoryRecord historyList[HISTORY_SIZE];
 int historyCount = 0;
 
 string getRiskLevel(int score);
@@ -67,7 +67,7 @@ void history();
 int main(){
 	int choice = 0;
 	
-	while (choice != 8){
+	while (choice != 8) {
 		system("cls");
 		mainMenu();
 		
@@ -156,16 +156,16 @@ void addHistory(string scanType, string programName, string result){
 	if(historyCount < HISTORY_SIZE){
 		historyList[historyCount].scanType = scanType;
 		historyList[historyCount].programName = programName;
-		hisotryList[historyCount].result = result;
+		historyList[historyCount].result = result;
 		historyCount++;
 	}
 }
 
 void scanOneProgram(int programIndex, string scanType){
-	int signatureIndex = findSignature(programs[programIndex].data);
+	int signatureIndex = findSignature(SimulatedPrograms[programIndex].data);
 	string result;
 	
-	cout << "\nScanning: " << programs[programIndex].name << "\n";
+	cout << "\nScanning: " << SimulatedPrograms[programIndex].name << "\n";
 	
 	if(signatureIndex != -1){
 		result = "KNOWN THREAT: " + virusNames[signatureIndex];
@@ -177,7 +177,7 @@ void scanOneProgram(int programIndex, string scanType){
 	
 	cout << "Threat score: " << SimulatedPrograms[programIndex].heuristicScore << " / 100\n";
 	cout << "Heuristic result: " << getRiskLevel(SimulatedPrograms[programIndex].heuristicScore) << "\n";
-	cout << "Status: " << SimulatedPrograms[programIndex].status << "\n";
+	cout << "Status: " << SimulatedPrograms[programIndex].Status << "\n";
 	
 	addHistory(scanType, SimulatedPrograms[programIndex].name, result);
 }
@@ -202,7 +202,7 @@ void customThreatAnalysis() {
 	cout << "2. Script (+10)\n";
 	cout << "3. Executable (+20)\n";
 	cout << "Choice: ";
-	cin << choice;
+	cin >> choice;
 	if(choice == 2) score += 10;
 	else if(choice == 3) score +=20;
 	
@@ -222,7 +222,7 @@ void customThreatAnalysis() {
 	cout << "4. Disables security (+40)\n";
 	cout << "5. Encypts many documents (+45)\n";
 	cout << "Choice: ";
-	cin << choice;
+	cin >> choice;
 	if (choice == 2) score += 15;
 	else if (choice == 3) score += 25;
 	else if (choice == 4) score += 40;
@@ -329,7 +329,7 @@ void history() {
 	
 	for (int i = 0; i< historyCount; i++) {
 		cout << i + 1 << ". [" << historyList[i].scanType << "] "
-			 <<historyList[i].ProgramName << " -> "
+			 <<historyList[i].programName << " -> "
 			 <<historyList[i].result << "\n";
 	}
 }
