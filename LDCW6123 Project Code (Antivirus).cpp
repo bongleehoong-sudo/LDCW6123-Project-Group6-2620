@@ -371,8 +371,10 @@ void integrityCheck() {
 		cout << "Enter choice: ";
 		cin >> choice;
 		
+		system("cls");
 		if (choice >= 1 && choice <= PROGRAM_COUNT) {
 			int index = choice - 1;
+			cout << "Program: " << SimulatedPrograms[index].name;
 			cout << "\nOriginal checksum: " << SimulatedPrograms[index].originalChecksum << "\n";
 			cout << "Current checksum: " << SimulatedPrograms[index].currentChecksum << "\n";
 			
