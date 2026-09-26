@@ -300,7 +300,7 @@ void customThreatAnalysis() {
 		score = 100;
 	}
 	
-	//if condition testing to ouput a recommended action
+	//if condition testing to ouput a recommended action at the end of the analysis
 	cout << "\nThreat score : " << score << " / 100\n";
 	cout << "Risk Level : " << getRiskLevel(score) << "\n";
 	if(score <= 24) cout << "Recommended Action: Allow and monitor\n";
@@ -314,6 +314,7 @@ void customThreatAnalysis() {
 
 //a function to display all known viruses within this simulated antivirus
 void virusDatabase() {
+	system("cls");
 	cout << "--- Virus Database ---\n";
 	cout << "Database Version: 1.0\n";
 	cout << "Known Threats : " << SIGNATURE_COUNT << "\n\n";
@@ -342,8 +343,10 @@ void Quarantine() {
 		if (choice >= 1 && choice <= PROGRAM_COUNT) {
 			int index = choice - 1;
 			if (SimulatedPrograms[index].Status == "QUARANTINED"){
+				system("cls");
 				cout << "\n" << SimulatedPrograms[index].name << " is already QUARANTINED.\n";
 			} else {
+				system("cls");
 				SimulatedPrograms[index].Status = "QUARANTINED";
 				cout << "\n" << SimulatedPrograms[index].name << " is now QUARANTINED (simulation). \n";
 				addHistory("Action", SimulatedPrograms[index].name, "QUARANTINED");
