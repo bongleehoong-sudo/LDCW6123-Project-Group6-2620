@@ -329,6 +329,7 @@ void virusDatabase() {
 void Quarantine() {
 	int choice = 0;
 	
+	//loop until the function has gone through all the programs
 	while (choice != PROGRAM_COUNT + 1) {
 		system("cls");
 		cout << "--- QUARANTINE ---\n";
@@ -357,6 +358,7 @@ void Quarantine() {
 	}
 }
 
+//checks for the integrity of the program through the checksum "hash value/file size" to determine if a file has been modified.
 void integrityCheck() {
 	int choice = 0;
 	
@@ -391,6 +393,7 @@ void integrityCheck() {
 	}
 }
 
+//function which displays the current session history
 void history() {
 	system("cls");
 	cout << "--- Current Session History ---\n";
