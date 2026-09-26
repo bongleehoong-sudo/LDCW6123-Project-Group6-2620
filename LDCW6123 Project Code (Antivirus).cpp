@@ -122,6 +122,7 @@ int main() {
 				break;
 				
 			case 8:
+				system("cls");
 				cout << "Program Terminated\n";
 				break;
 		}
