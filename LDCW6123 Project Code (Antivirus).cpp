@@ -213,6 +213,7 @@ void quickScan() {
 
 //runs scanOneProgram through each attribute within the SimulatedPrograms structure by utilizing a for loop
 void fullScan(){
+	system("cls");
 	cout << "--- FULL SCAN ---\n";
 	for(int i = 0; i < PROGRAM_COUNT; i++){
 		scanOneProgram(i, "Full");
@@ -226,14 +227,22 @@ void customThreatAnalysis() {
 	int score = 0;
 	int choice = 0;
 	
+	system("cls");
 	cout << "--- CUSTOM HEURISTIC THREAT ANALYSIS ---\n";
 	
 	cout << "\nProgram type:\n";
 	cout << "1. Official store (+0)\n";
 	cout << "2. Script (+10)\n";
 	cout << "3. Executable (+20)\n";
+	cout << "0. Cancel Analysis\n";
 	cout << "Choice: ";
 	cin >> choice;
+	if(choice == 0){
+		system("cls");
+		cout << "Analysis Cancelled.\n";
+		system("pause");
+		return;
+	}
 	if(choice == 2) score += 10;
 	else if(choice == 3) score +=20;
 	
@@ -241,8 +250,15 @@ void customThreatAnalysis() {
 	cout << "1. Official store (+0)\n";
 	cout << "2. Unknown website (+15)\n";
 	cout << "3. Untrusted scource (+25)\n";
+	cout << "0. Cancel Analysis\n";
 	cout << "Choice: ";
 	cin >> choice;
+	if(choice == 0){
+		system("cls");
+		cout << "Analysis Cancelled.\n";
+		system("pause");
+		return;
+	}
 	if (choice == 2) score += 15;
 	else if (choice == 3) score += 25;
 	
@@ -252,8 +268,15 @@ void customThreatAnalysis() {
 	cout << "3. Unknown network access (+25)\n";
 	cout << "4. Disables security (+40)\n";
 	cout << "5. Encypts many documents (+45)\n";
+	cout << "0. Cancel Analysis\n";
 	cout << "Choice: ";
 	cin >> choice;
+	if(choice == 0){
+		system("cls");
+		cout << "Analysis Cancelled\n";
+		system("pause");
+		return;
+	}
 	if (choice == 2) score += 15;
 	else if (choice == 3) score += 25;
 	else if (choice == 4) score += 40;
@@ -262,8 +285,15 @@ void customThreatAnalysis() {
 	cout << "\nIs the program packed or obufscated?\n";
 	cout << "1. Yes (+15)\n";
 	cout << "2. No (+0)\n";
+	cout << "0. Cancel Analysis\n";
 	cout << "Choice: ";
 	cin >> choice;
+	if(choice == 0){
+		system("cls");
+		cout << "Analysis Cancelled\n";
+		system("pause");
+		return;
+	}
 	if(choice == 1) score += 15;
 	
 	if (score > 100) {
