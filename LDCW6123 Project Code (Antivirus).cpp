@@ -133,7 +133,6 @@ int main() {
 //displays main menu
 void mainMenu(){
 	cout << "\n================== Simulated Antivirus ===================\n";
-	cout << "\n";
 	cout << "1. Quick Scan\n";
 	cout << "2. Full Scan\n";
 	cout << "3. Custom Threat Analysis\n";
@@ -202,6 +201,7 @@ void scanOneProgram(int programIndex, string scanType){
 
 //performs "quick scan", skipping over some programs for a simulated quick scan by integrating the scanOneProgram helper function and giving it the index to "scan"
 void quickScan() {
+	system("cls");
 	cout << "--- QUICK SCAN ---\n";
 	scanOneProgram(0, "Quick");
 	scanOneProgram(2, "Quick");
