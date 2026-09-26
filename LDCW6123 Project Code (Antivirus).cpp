@@ -1,13 +1,16 @@
-#include <iostream>
+#include <iostream> 
 #include <string>
 #include <cstdlib>
 
+//pulls all standard components into global scope allows omission of std:: prefix in front of components of the std container
 using namespace std;
 
+//setting constants to ease debugging
 const int PROGRAM_COUNT = 12;
 const int SIGNATURE_COUNT = 6;
 const int HISTORY_SIZE = 60;
 
+//record for programs to store program details required
 struct Programs{
 	string name;
 	string data;
@@ -17,20 +20,24 @@ struct Programs{
 	string Status;
 };
 
+//record to store history of actions performed using the antivirus
 struct HistoryRecord{
 	string scanType;
 	string programName;
 	string result;
 };
 
+//an array to store names of viruses for virus database
 string virusNames[SIGNATURE_COUNT] = {
 	"Brain", "Stoned", "Jerusalem", "Michelangelo", "Melissa", "ILOVEYOU"
 };
 
+//an array to store signatures of viruses for virus database
 string virusSignatures[SIGNATURE_COUNT] = {
 	"BRAIN", "STONED", "JERU", "MICHEL", "MELISSA", "LOVE-LETTER"
 };
 
+//2D record of programs that are simulated within this program
 Programs SimulatedPrograms[PROGRAM_COUNT] = {
 	{"SYSTEM Utility", "BOOT SYSTEM CLEAN", 1260, 1260, 35, "ACTIVE"},
 	{"GAME Program", "PLAYER LEVEL SCORE", 1420, 1420, 10, "ACTIVE"},
@@ -46,16 +53,18 @@ Programs SimulatedPrograms[PROGRAM_COUNT] = {
 	{"OLD Boot Disk", "MICHEL BOOT SAMPLE", 1600, 1600, 85, "ACTIVE"}
 };
 
+//initializing the history record allowing it to store application history
 HistoryRecord historyList[HISTORY_SIZE];
 int historyCount = 0;
 
+//function prototypes for helper functions
 string getRiskLevel(int score);
 void addHistory(string scanType, string programName, string result);
 int findSignature(string programData);
-
-
-void mainMenu();
 void scanOneProgram(int programIndex, string scanType);
+
+//function prototypes for main functions
+void mainMenu();
 void quickScan();
 void fullScan();
 void customThreatAnalysis();
@@ -64,21 +73,25 @@ void Quarantine();
 void integrityCheck();
 void history();
 
+//main fucntion
 int main() {
-	int choice = 0;
+	int choice = 0; //initializing choice
 	
+	//a while loop which runs the program continuously until the user terminates it
 	while (choice != 8) {
-		system("cls");
+		system("cls"); //ensures the concole is cleared
 		mainMenu();
 		
 		cout << "Enter Choice <1-8>: \n";
 		cin >> choice;
 		
+		//loop to catch user input errors
 		while (choice < 1 || choice > 8){
-			cout << "Invalid Choice! Please Enter a number between 1-8.";
+			cout << "Invalid Choice! Please Enter a number between 1-8."; 
 			cin >> choice;
 		}
 		
+		//switch case which allows user to select which case to perform
 		switch (choice){
 			case 1:
 				quickScan();
@@ -116,7 +129,7 @@ int main() {
 	return 0;
 }
 
-//main menu
+//displays main menu
 void mainMenu(){
 	cout << "\n================== Simulated Antivirus ===================\n";
 	cout << "\n";
@@ -131,15 +144,17 @@ void mainMenu(){
 	cout << "============================================================\n";
 }
 
+//helper function to search for matches with the virus database
 int findSignature(string programData) {
-	for (int i = 0; i < SIGNATURE_COUNT; i++) {
-		if (programData.find(virusSignatures[i]) != string::npos) {
+	for (int i = 0; i < SIGNATURE_COUNT; i++) { //for loop to progress through each item in the virus signature array
+		if (programData.find(virusSignatures[i]) != string::npos) { //searches programData array for strings matching items in the virusSignatures array returning the index number within the array
 			return i;
 		}
 	}
 	return -1;
 }
 
+//obtains risk level through condition testing
 string getRiskLevel(int score){
 	if(score <= 24){
 		return "SAFE";
@@ -152,6 +167,7 @@ string getRiskLevel(int score){
 	}
 }
 
+//helper function to add logs into the history array that was initialized
 void addHistory(string scanType, string programName, string result){
 	if(historyCount < HISTORY_SIZE){
 		historyList[historyCount].scanType = scanType;
@@ -161,18 +177,19 @@ void addHistory(string scanType, string programName, string result){
 	}
 }
 
+//helper function to go through each program to find signatures matching the virus database
 void scanOneProgram(int programIndex, string scanType){
-	int signatureIndex = findSignature(SimulatedPrograms[programIndex].data);
+	int signatureIndex = findSignature(SimulatedPrograms[programIndex].data); //utilizes findSignature helper function to find matches
 	string result;
 	
 	cout << "\nScanning: " << SimulatedPrograms[programIndex].name << "\n";
 	
 	if(signatureIndex != -1){
-		result = "KNOWN THREAT: " + virusNames[signatureIndex];
-		cout << "Signature result : " << result << "\n";
+		result = "KNOWN THREAT: " + virusNames[signatureIndex]; //returns the name of the virus
+		cout << "Signature result : " << result << "\n"; //returns which program is affected
 	} else {
-		cout << "Signature result : NO MATCH\n";
-		result = getRiskLevel(SimulatedPrograms[programIndex].heuristicScore);
+		cout << "Signature result : NO MATCH\n"; //signatureIndex = -1 when no virus is found
+		result = getRiskLevel(SimulatedPrograms[programIndex].heuristicScore); //sets result to the heuristic score of the program
 	}
 	
 	cout << "Threat score: " << SimulatedPrograms[programIndex].heuristicScore << " / 100\n";
