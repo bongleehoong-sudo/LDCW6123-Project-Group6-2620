@@ -392,9 +392,11 @@ void integrityCheck() {
 }
 
 void history() {
+	system("cls");
 	cout << "--- Current Session History ---\n";
 	if(historyCount == 0) {
 		cout << "No scans or actions recorded yet.\n";
+		system("pause");
 		return;
 	}
 	
