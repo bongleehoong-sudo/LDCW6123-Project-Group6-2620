@@ -189,16 +189,17 @@ void scanOneProgram(int programIndex, string scanType){
 		cout << "Signature result : " << result << "\n"; //returns which program is affected
 	} else {
 		cout << "Signature result : NO MATCH\n"; //signatureIndex = -1 when no virus is found
-		result = getRiskLevel(SimulatedPrograms[programIndex].heuristicScore); //sets result to the heuristic score of the program
+		result = getRiskLevel(SimulatedPrograms[programIndex].heuristicScore); //sets result to the risk level of the program based on its heuristik score
 	}
 	
-	cout << "Threat score: " << SimulatedPrograms[programIndex].heuristicScore << " / 100\n";
-	cout << "Heuristic result: " << getRiskLevel(SimulatedPrograms[programIndex].heuristicScore) << "\n";
-	cout << "Status: " << SimulatedPrograms[programIndex].Status << "\n";
+	cout << "Threat score: " << SimulatedPrograms[programIndex].heuristicScore << " / 100\n"; //returns the heuristic score
+	cout << "Heuristic result: " << getRiskLevel(SimulatedPrograms[programIndex].heuristicScore) << "\n"; //returns the risk level based on the heuristic score
+	cout << "Status: " << SimulatedPrograms[programIndex].Status << "\n";//returns status (active/quarantined)
 	
-	addHistory(scanType, SimulatedPrograms[programIndex].name, result);
+	addHistory(scanType, SimulatedPrograms[programIndex].name, result);//adds this action into the history log
 }
 
+//performs "quick scan", skipping over some programs for a simulated quick scan by integrating the scanOneProgram helper function and giving it the index to "scan"
 void quickScan() {
 	cout << "--- QUICK SCAN ---\n";
 	scanOneProgram(0, "Quick");
@@ -209,6 +210,7 @@ void quickScan() {
 	system("pause");
 }
 
+//runs scanOneProgram through each attribute within the SimulatedPrograms structure by utilizing a for loop
 void fullScan(){
 	cout << "--- FULL SCAN ---\n";
 	for(int i = 0; i < PROGRAM_COUNT; i++){
@@ -218,6 +220,7 @@ void fullScan(){
 	system("pause");
 }
 
+//obtains user input to carry out a "custom threat analysis" and gives it a score as well as a recommended action
 void customThreatAnalysis() {
 	int score = 0;
 	int choice = 0;
@@ -266,6 +269,7 @@ void customThreatAnalysis() {
 		score = 100;
 	}
 	
+	//if condition testing to ouput a recommended action
 	cout << "\nThreat score : " << score << " / 100\n";
 	cout << "Risk Level : " << getRiskLevel(score) << "\n";
 	if(score <= 24) cout << "Recommended Action: Allow and monitor\n";
@@ -273,10 +277,11 @@ void customThreatAnalysis() {
 	else if (score <= 74) cout << "Recommended Action: Investigate carefully\n";
 	else cout << "Recommended Action: Quarantine for investigation\n";
 	
-	addHistory("Custom", "User answer", getRiskLevel(score));
+	addHistory("Custom", "User answer", getRiskLevel(score)); //adds the custom analysis into the history
 	system("pause");
 }
 
+//a function to display all known viruses within this simulated antivirus
 void virusDatabase() {
 	cout << "--- Virus Database ---\n";
 	cout << "Database Version: 1.0\n";
@@ -288,6 +293,7 @@ void virusDatabase() {
 	system("pause");
 }
 
+//a function to allow users to select which programs to quarantine and return to main menu
 void Quarantine() {
 	int choice = 0;
 	
